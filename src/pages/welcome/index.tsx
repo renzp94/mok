@@ -3,7 +3,7 @@ import { IconFont } from '@nutui/icons-react-taro'
 import { Animate, NoticeBar } from '@nutui/nutui-react-taro'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import './index.less'
+import styles from './index.module.less'
 
 const Page = () => {
   const onGetUserInfo = async () => {
@@ -28,14 +28,14 @@ const Page = () => {
     }
   }
   return (
-    <View className="welcome-page">
+    <View className={styles.page}>
       <NoticeBar
         content="Mok手记不收集任何数据，请勿随意删除以免造成数据丢失。"
         closeable
       />
-      <View className="header">
-        <View className="title">Mok手记</View>
-        <View className="description">记录，让生活更美好</View>
+      <View className={styles.header}>
+        <View className={styles.title}>Mok手记</View>
+        <View className={styles.description}>记录，让生活更美好</View>
       </View>
       <Animate type="float" loop>
         <View onClick={onGetUserInfo}>
@@ -46,7 +46,7 @@ const Page = () => {
             color="#fff"
             size={64}
           />
-          <View className="start-btn-text">开启记账</View>
+          <View className={styles['start-btn-text']}>开启记账</View>
         </View>
       </Animate>
     </View>
