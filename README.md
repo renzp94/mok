@@ -1,5 +1,5 @@
 <div align="center">
-  <img height="128" src="./logo.png" />
+  <img height="128" src="./src//assets/images/logo.png" />
   <h3>
     <strong>Mok手记</strong>
   </h3>

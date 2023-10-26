@@ -1,4 +1,5 @@
 import { setUserInfo } from '@/api/user'
+import { useShare } from '@/hooks/share'
 import { IconFont } from '@nutui/icons-react-taro'
 import { Animate, NoticeBar } from '@nutui/nutui-react-taro'
 import { View } from '@tarojs/components'
@@ -27,6 +28,9 @@ const Page = () => {
       Taro.hideLoading()
     }
   }
+
+  useShare('/pages/welcome/index')
+
   return (
     <View className={styles.page}>
       <NoticeBar

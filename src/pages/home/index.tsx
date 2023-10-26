@@ -1,4 +1,5 @@
 import { add, select } from '@/api/db'
+import { useShare } from '@/hooks/share'
 import { HistoryModel } from '@/models/db'
 import { IconFont } from '@nutui/icons-react-taro'
 import { DatePicker, Empty, Sticky } from '@nutui/nutui-react-taro'
@@ -110,6 +111,8 @@ const Page = () => {
       }
     }
   }
+
+  useShare('/pages/home/index')
 
   return (
     <>
