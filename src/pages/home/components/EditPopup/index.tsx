@@ -47,7 +47,7 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
   const nowDate = `${values.year}/${values.month}/${values.day}`
 
   const onKeyboardClick = (v: string) => {
-    const { money } = values as { money: string }
+    const money = values.money.toString()
 
     switch (v) {
       case '.':
@@ -108,7 +108,6 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
       className={styles['edit-popup']}
       round
       destroyOnClose
-      overlay={false}
       afterClose={onAfterClose}
       {...popupProps}
     >
