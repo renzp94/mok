@@ -1,6 +1,6 @@
 {
   "name": "mok",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "private": true,
   "description": "基于Taro和React开发的一款记账小程序",
   "templateInfo": {
@@ -31,7 +31,11 @@
     "lint": "biome check --apply src && biome format --write src && stylelint --fix src/**/*.{less,css}",
     "lint:unsafe": "biome check --apply-unsafe src && biome format --write src && stylelint --fix src/**/*.{less,css}"
   },
-  "browserslist": ["last 3 versions", "Android >= 4.1", "ios >= 8"],
+  "browserslist": [
+    "last 3 versions",
+    "Android >= 4.1",
+    "ios >= 8"
+  ],
   "author": "renzp94 <1074720760.qq.com>",
   "license": "MIT",
   "dependencies": {
