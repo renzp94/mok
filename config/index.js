@@ -18,8 +18,6 @@ const config = {
     type: 'webpack5',
     prebundle: { enable: false },
   },
-  jsMinimizer: 'esbuild',
-  cssMinimizer: 'esbuild',
   cache: {
     enable: true,
   },

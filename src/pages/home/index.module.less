@@ -1,0 +1,101 @@
+.header{
+  display: flex;  
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  background-color: var(--nutui-brand-color);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
+
+  &-money {
+    flex: 1 0 auto;
+    padding-left: 12px;
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    &-result :global(.total-amount-count-up .nut-countup__listitem){
+      font-size: 16px;
+      line-height: 1.2;
+    }
+  }
+
+  &-time {
+    box-sizing: border-box;
+    padding: 12px;
+    transition: all 0.5s;
+    border: 1px #fff dashed;
+    border-radius: 8px;
+    font-size: 12px;
+    text-align: center;
+
+    &-title {
+      margin-bottom: 2px;
+      color: #eee;
+      font-size: 12px;
+    }
+
+    &-info {
+      box-sizing: border-box;
+      color: #fff;
+    }
+
+    &--open{
+      border-bottom-right-radius: 24px;
+    }
+
+    &-month {
+      display: inline-block;
+      margin-right: 2px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+}
+
+.history {
+  margin-top: 32px;
+  padding: 0 12px;
+
+  &-item {
+    display: flex;
+    place-content: center space-between;
+    padding: 16px 0;
+    border-bottom: 1px #f2f6fc solid;
+
+    &-icon {
+      margin-right: 8px;
+    }
+
+    &-note {
+      flex: 1 0 auto;
+    }
+
+    &-prefix {
+      margin-right: 4px;
+    }
+
+    &-money {
+      flex: 0 0 auto;
+      margin-right: 4px;
+      font-weight: 700;
+    }
+  }
+
+  &__no-data {
+    height: 60vh;
+  }
+}
+
+.add-btn{
+  display: flex;
+  position: fixed;
+  z-index: 99;
+  right: 12px;
+  bottom: 100px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--nutui-brand-color);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 4%);
+}

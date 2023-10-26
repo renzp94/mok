@@ -3,6 +3,7 @@ import Taro from '@tarojs/taro'
 const isUndef = (v: unknown) => v === undefined || v === null
 
 export const USER_INFO = 'MOK_USER_INFO'
+export const HISTORY = 'MOK_HISTORY'
 export default {
   get: <T = unknown>(key: string): T => {
     const data: string | null = Taro.getStorageSync(key)

@@ -1,0 +1,39 @@
+.history-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  padding: 12px 0;
+  border-bottom: 1px #f2f6fc solid;
+  font-size: 14px;
+
+  &-swipe:last-child &{
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  &-icon {
+    margin-right: 8px;
+  }
+
+  &-title {
+    flex: 1 0 auto;
+    color: #7487A3;
+    font-size: 12px;
+  }
+
+  &-prefix {
+    margin-right: 4px;
+  }
+
+  &-symbol{
+    margin-right: 4px;
+  }
+
+  &-money {
+    flex: 0 0 auto;
+    margin-right: 4px;
+    font-weight: 700;
+  }
+}
+
