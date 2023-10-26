@@ -1,7 +1,7 @@
 import { IconFont } from '@nutui/icons-react-taro'
 import { Grid } from '@nutui/nutui-react-taro'
 import classes from '@renzp/classes'
-import { Button, View } from '@tarojs/components'
+import { Button } from '@tarojs/components'
 import './index.less'
 
 export interface NumberKeyboardPanelProps {

@@ -152,6 +152,7 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
         <NumberKeyboardPanel onClick={onKeyboardClick} />
       </View>
       <Calendar
+        startDate={`${year}-01-01`}
         showTitle={false}
         visible={dateVisible}
         defaultValue={nowDate}
