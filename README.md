@@ -1,5 +1,5 @@
 <div align="center">
-  <img height="128" src="./src//assets/images/logo.png" />
+  <img height="128" src="./app/src/assets/images/logo.png" />
   <h3>
     <strong>Mok手记</strong>
   </h3>
@@ -12,7 +12,7 @@
 ## 二维码
 
 <div align="center">
-  <img height="128" src="./weapp-code.jpg" />
+  <img height="128" src="./app/weapp-code.jpg" />
   <br />
   <div>微信</div>
 </div>
