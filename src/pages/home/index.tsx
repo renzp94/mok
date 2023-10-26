@@ -147,7 +147,7 @@ const Page = () => {
             <HistoryCard
               time={item.time}
               data={item.history}
-              onChange={getHistory}
+              onChange={() => getHistory({ year, month })}
             />
           ))
         ) : (
