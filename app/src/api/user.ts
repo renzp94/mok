@@ -1,17 +1,12 @@
-import storage, { USER_INFO } from '@/utils/storage'
+import type { UserModel } from '@/models/user'
+import request from './request'
 
-// 存储用户信息
-export const setUserInfo = (data) => {
-  if (data) {
-    storage.set(USER_INFO, data)
-  }
-}
-
-// 获取用户信息
-export const getUserInfo = () => storage.get(USER_INFO)
-
-// 删除用户信息
-export const removeUserInfo = () => storage.remove(USER_INFO)
-
-
-export const login = () => {}
+/**
+ * 微信登录
+ * @param code wx.login返回的code
+ * @returns 用户信息和token
+ */
+export const weappLogin = async (code: string) =>
+  request.post<{ userInfo: UserModel; token: string }>('/user/weappLogin', {
+    code,
+  })

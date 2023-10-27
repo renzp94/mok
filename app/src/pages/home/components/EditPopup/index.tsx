@@ -1,5 +1,5 @@
-import { select } from '@/api/db'
-import { HistoryModel, HistoryType } from '@/models/db'
+import { fetchBillDetails } from '@/api/bill'
+import { BILL_TYPE, type BillModel } from '@/models/bill'
 import {
   Button,
   Calendar,
@@ -16,7 +16,7 @@ import styles from './index.module.less'
 
 export interface EditPopupProps extends Partial<PopupProps> {
   id?: string
-  onConfirm?: (v: HistoryModel) => void
+  onConfirm?: (v: BillModel) => void
 }
 
 const getNow = () => {
@@ -26,8 +26,8 @@ const getNow = () => {
 
 const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
   const [year, month, day] = getNow()
-  const defaultValues: HistoryModel = {
-    type: 'INCOME',
+  const defaultValues: BillModel = {
+    type: BILL_TYPE.INCOME,
     year,
     month,
     day,
@@ -38,11 +38,19 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
   const [values, setValues] = useState(defaultValues)
 
   useEffect(() => {
-    if (id) {
-      const [data] = select({ id })
-      setValues({ ...data, money: data.money.toString() })
+    if (popupProps.visible && id) {
+      const getDetails = async () => {
+        try {
+          Taro.showLoading()
+          const { data } = await fetchBillDetails(id)
+          setValues({ ...data, money: data.money.toString() })
+        } finally {
+          Taro.hideLoading()
+        }
+      }
+      getDetails()
     }
-  }, [id])
+  }, [popupProps.visible, id])
 
   const nowDate = `${values.year}/${values.month}/${values.day}`
 
@@ -73,7 +81,7 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
     setValues((v) => ({ ...v, note }))
   }
 
-  const onTypeChange = (type: HistoryType) => {
+  const onTypeChange = (type: BILL_TYPE) => {
     setValues((v) => ({ ...v, type }))
   }
   const onTimeChange = ([year, month, day]: any) => {

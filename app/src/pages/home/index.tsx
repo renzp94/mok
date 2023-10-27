@@ -1,14 +1,14 @@
-import { add, select } from '@/api/db'
+import { addBill, fetchBillList } from '@/api/bill'
 import { useShare } from '@/hooks/share'
-import { HistoryModel } from '@/models/db'
+import { BILL_TYPE, type BillModel } from '@/models/bill'
 import { IconFont } from '@nutui/icons-react-taro'
 import { DatePicker, Empty, Sticky } from '@nutui/nutui-react-taro'
 import classes from '@renzp/classes'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import BillCard from './components/BillCard'
 import EditPopup from './components/EditPopup'
-import HistoryCard from './components/HistoryCard'
 import TotalAmount from './components/TotalAmount'
 import styles from './index.module.less'
 
@@ -28,25 +28,30 @@ const Page = () => {
     }
   }
 
-  const [history, setHistory] = useState<HistoryModel[]>([])
-  useEffect(() => getHistory({ year, month }), [year, month])
-  const getHistory = (payload?: Partial<HistoryModel>) => {
-    setHistory(select(payload))
-  }
-  const incomeMoney = history
-    .filter((item) => item.type === 'INCOME')
+  const [bills, setBills] = useState<BillModel[]>([])
+  const getBills = useCallback(async (year: number, month: number) => {
+    const { data } = await fetchBillList({ year, month })
+    setBills(data)
+  }, [])
+
+  useEffect(() => {
+    getBills(year, month)
+  }, [year, month, getBills])
+
+  const incomeMoney = bills
+    .filter((item) => item.type === BILL_TYPE.INCOME)
     .reduce((prev, curr) => prev + (curr.money as number), 0)
 
-  const spendingMoney = history
-    .filter((item) => item.type === 'SPENDING')
+  const spendingMoney = bills
+    .filter((item) => item.type === BILL_TYPE.SPENDING)
     .reduce((prev, curr) => prev + (curr.money as number), 0)
 
   const money = incomeMoney - spendingMoney
 
-  const historyList = useMemo(() => {
+  const billList = useMemo(() => {
     // 获取时间列表
     const timeList = new Set()
-    for (const item of history) {
+    for (const item of bills) {
       const { year, month, day } = item
       const time = `${year}${month}${day}`
       timeList.add(time)
@@ -57,35 +62,36 @@ const Page = () => {
     )
 
     const dataSource: any = []
-    for (const item of history) {
+    for (const item of bills) {
       const { year, month, day } = item
       const time = `${year}${month}${day}`
 
       // 查找当前日期所在位置
       const index = timeArray.findIndex((item) => item === time)
 
+      const isIncome = item.type === BILL_TYPE.INCOME
+
       if (dataSource[index]) {
-        dataSource[index].history.push(item)
-        dataSource[index][
-          item.type === 'INCOME' ? 'incomeMoney' : 'spendingMoney'
-        ] += item.money
+        dataSource[index].children.push(item)
+        dataSource[index][isIncome ? 'incomeMoney' : 'spendingMoney'] +=
+          item.money
       } else {
         // 若不存在则新建
         dataSource[index] = {
           time: `${month.toString().padStart(2, '0')}月${day
             .toString()
             .padStart(2, '0')}日`,
-          incomeMoney: item.type === 'INCOME' ? item.money : 0,
-          spendingMoney: item.type === 'SPENDING' ? item.money : 0,
-          history: [item],
+          incomeMoney: isIncome ? item.money : 0,
+          spendingMoney: !isIncome ? item.money : 0,
+          children: [item],
         }
       }
     }
 
     return dataSource
-  }, [history])
+  }, [bills])
 
-  const validator = (values: HistoryModel) => {
+  const validator = (values: BillModel) => {
     if (Number(values.money) === 0) {
       Taro.showToast({
         title: '请输入正确的金额',
@@ -98,13 +104,12 @@ const Page = () => {
     return true
   }
 
-  const onAdd = (values: HistoryModel) => {
+  const onAdd = async (values: BillModel) => {
     if (validator(values)) {
-      const payload = { id: `${Date.now()}`, ...values }
       Taro.showLoading()
       try {
-        add(payload)
-        getHistory({ year, month })
+        await addBill(values)
+        getBills(year, month)
         setEditPopupVisible(false)
       } finally {
         Taro.hideLoading()
@@ -141,13 +146,13 @@ const Page = () => {
           </View>
         </View>
       </Sticky>
-      <View className={styles.history}>
-        {history.length > 0 ? (
-          historyList.map((item) => (
-            <HistoryCard
+      <View className={styles.bill}>
+        {billList.length > 0 ? (
+          billList.map((item) => (
+            <BillCard
               time={item.time}
-              data={item.history}
-              onChange={() => getHistory({ year, month })}
+              data={item.children}
+              onChange={() => getBills(year, month)}
             />
           ))
         ) : (

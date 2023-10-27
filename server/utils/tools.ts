@@ -1,5 +1,5 @@
-import { decode, Payload, RouterContext } from "../deps.ts";
-import { User } from "../db/model.ts";
+import { decode, type Payload, type RouterContext } from "../deps.ts";
+import type { UserModel } from "../db/model.ts";
 /**
  * 从路由上下文中获取token
  * @param ctx 路由上下文
@@ -29,10 +29,10 @@ export const getHeaderTokenUserId = (ctx: RouterContext<string>) => {
 
   return id;
 };
-export const removeUserPasswordAndToken = (data: User) => {
+export const removeUserOpenidAndToken = (data: UserModel) => {
   return {
     ...data,
-    password: undefined,
+    openid: undefined,
     token: undefined,
   };
 };

@@ -1,25 +1,25 @@
 import { RESPONSE_CODE } from "./types.ts";
 import {
-  deleteOneSubject,
-  findOneSubject,
-  findSubjectList,
-  findSubjectPage,
-  insertOneSubject,
-  updateOneSubject,
-} from "../service/subject.ts";
-import { helpers, RouterContext } from "../deps.ts";
-import type { Subject } from "../db/model.ts";
+  deleteOneBill,
+  findBillList,
+  findBillPage,
+  findOneBill,
+  insertOneBill,
+  updateOneBill,
+} from "../service/bill.ts";
+import { helpers, type RouterContext } from "../deps.ts";
+import type { BillModel } from "../db/model.ts";
 
 /**
- * 添加学科数据
+ * 添加账单
  */
-export const addSubject = async (ctx: RouterContext<string>) => {
+export const addBill = async (ctx: RouterContext<string>) => {
   const body = ctx.request.body();
-  const playLoad: Subject = await body.value;
+  const playLoad: BillModel = await body.value;
 
-  const { ok, data } = await insertOneSubject(playLoad);
+  const { ok, data } = await insertOneBill(playLoad);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
-  const msg = ok ? "插入成功" : "插入失败";
+  const msg = ok ? "添加成功" : "添加失败";
 
   ctx.response.body = {
     code,
@@ -27,10 +27,13 @@ export const addSubject = async (ctx: RouterContext<string>) => {
     msg,
   };
 };
-export const removeSubject = async (ctx: RouterContext<string>) => {
-  const _id = ctx?.params?.id;
+/**
+ * 删除账单
+ */
+export const removeBill = async (ctx: RouterContext<string>) => {
+  const id = ctx?.params?.id;
 
-  if (!_id) {
+  if (!id) {
     ctx.response.body = {
       code: RESPONSE_CODE.ERROR,
       msg: "参数id验证错误",
@@ -39,7 +42,7 @@ export const removeSubject = async (ctx: RouterContext<string>) => {
     return;
   }
 
-  const { ok, data } = await deleteOneSubject(_id);
+  const { ok, data } = await deleteOneBill(id);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
   const msg = ok ? "删除成功" : "删除失败";
 
@@ -49,13 +52,16 @@ export const removeSubject = async (ctx: RouterContext<string>) => {
     msg,
   };
 };
-export const updateSubject = async (ctx: RouterContext<string>) => {
+/**
+ * 更新账单
+ */
+export const updateBill = async (ctx: RouterContext<string>) => {
   const body = ctx.request.body();
-  const playLoad: Subject = await body.value;
+  const playLoad: BillModel = await body.value;
 
-  const { ok, data } = await updateOneSubject(playLoad);
+  const { ok, data } = await updateOneBill(playLoad);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
-  const msg = ok ? "更新成功" : "更新失败";
+  const msg = ok ? "编辑成功" : "编辑失败";
 
   ctx.response.body = {
     code,
@@ -64,12 +70,12 @@ export const updateSubject = async (ctx: RouterContext<string>) => {
   };
 };
 /**
- * 查询学科分页数据
+ * 查询分页数据
  */
-export const getSubjectPage = async (ctx: RouterContext<string>) => {
+export const getBillPage = async (ctx: RouterContext<string>) => {
   const query: any = helpers.getQuery(ctx);
 
-  const { ok, data } = await findSubjectPage(query);
+  const { ok, data } = await findBillPage(query);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
   const msg = ok ? "查询成功" : "查询失败";
 
@@ -80,10 +86,12 @@ export const getSubjectPage = async (ctx: RouterContext<string>) => {
   };
 };
 /**
- * 查询学科所有数据
+ * 查询无分页数据
  */
-export const getSubjectList = async (ctx: RouterContext<string>) => {
-  const { ok, data } = await findSubjectList();
+export const getBillList = async (ctx: RouterContext<string>) => {
+  const query: any = helpers.getQuery(ctx);
+
+  const { ok, data } = await findBillList(query);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
   const msg = ok ? "查询成功" : "查询失败";
 
@@ -94,12 +102,12 @@ export const getSubjectList = async (ctx: RouterContext<string>) => {
   };
 };
 /**
- * 查询学科详情
+ * 查询详情
  */
-export const getSubjectDetails = async (ctx: RouterContext<string>) => {
-  const _id = ctx?.params?.id;
+export const getBillDetails = async (ctx: RouterContext<string>) => {
+  const id = ctx?.params?.id;
 
-  if (!_id) {
+  if (!id) {
     ctx.response.body = {
       code: RESPONSE_CODE.ERROR,
       msg: "参数id验证错误",
@@ -108,7 +116,7 @@ export const getSubjectDetails = async (ctx: RouterContext<string>) => {
     return;
   }
 
-  const { ok, data } = await findOneSubject({ _id });
+  const { ok, data } = await findOneBill(id);
   const code = ok ? RESPONSE_CODE.SUCCESS : RESPONSE_CODE.ERROR;
   const msg = ok ? "查询成功" : "查询失败";
 

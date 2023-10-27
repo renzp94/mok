@@ -1,20 +1,18 @@
-import {
-  APP_ID,
-  DATA_API_KEY,
-  DATA_BASE,
-  DATA_SOURCE,
-} from "../utils/constants.ts";
+const {
+  DB_API_URL,
+  DB_DATA_API_KEY,
+  DB_DATA_BASE,
+  DB_DATA_SOURCE,
+} = Deno.env.toObject();
 
 const defaultBody = {
-  dataSource: DATA_SOURCE,
-  database: DATA_BASE,
+  dataSource: DB_DATA_SOURCE,
+  database: DB_DATA_BASE,
 };
-const BASE_URL =
-  `https://ap-southeast-1.aws.data.mongodb-api.com/app/${APP_ID}/endpoint/data/v1/action`;
 
 const headers = {
   "Content-Type": "application/json",
-  "api-key": DATA_API_KEY,
+  "api-key": DB_DATA_API_KEY,
 };
 
 // 数据表
@@ -44,7 +42,10 @@ export default class DB {
    * @param data 插入的数据
    * @returns 返回插入结果
    */
-  static insertOne<T>(tb: string, document: T): DBResponse<unknown> {
+  static insertOne<T>(
+    tb: string,
+    document: T,
+  ): DBResponse<{ insertedId: string } | null> {
     return this.#run({
       action: "insertOne",
       collection: tb,
@@ -172,6 +173,11 @@ export default class DB {
     limit?: number;
     skip?: number;
   }): DBResponse<T[]> {
+    console.log({
+      action: "find",
+      collection: tb,
+      params,
+    });
     const { ok, data } = await this.#run<{ documents: T[] }>({
       action: "find",
       collection: tb,
@@ -197,7 +203,7 @@ export default class DB {
       params?: Record<string, unknown>;
     },
   ) {
-    const URL = `${BASE_URL}/${action}`;
+    const URL = `${DB_API_URL}/${action}`;
     const options = {
       method: "POST",
       headers,

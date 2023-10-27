@@ -1,13 +1,13 @@
-import { getUserInfo } from '@/api/user'
+import storage, { TOKEN } from '@/utils/storage'
 import Taro, { useLaunch } from '@tarojs/taro'
 // 全局样式
 import './app.less'
 
 function App(props) {
   useLaunch(() => {
-    const userInfo = getUserInfo()
+    const token = storage.get(TOKEN)
 
-    if (userInfo) {
+    if (token) {
       Taro.reLaunch({
         url: '/pages/home/index',
       })

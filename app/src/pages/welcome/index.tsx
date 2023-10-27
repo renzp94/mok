@@ -1,38 +1,32 @@
-import { setUserInfo } from '@/api/user'
+import { weappLogin } from '@/api/user'
 import { useShare } from '@/hooks/share'
+import storage, { TOKEN, USER_INFO } from '@/utils/storage'
+import { asyncFunc } from '@/utils/tools'
 import { IconFont } from '@nutui/icons-react-taro'
-import { Animate, NoticeBar } from '@nutui/nutui-react-taro'
+import { Animate } from '@nutui/nutui-react-taro'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import styles from './index.module.less'
-import { asyncFunc } from '@/utils/tools'
 
 const Page = () => {
   const onLogin = async () => {
-    const data = await asyncFunc(Taro.login)
-    console.log(data)
-    if(data.code){
-      
-    }
-    // try {
-    //   Taro.showLoading()
-    //   const data: any = await new Promise((resolve, reject) => {
-    //     Taro.getUserProfile({
-    //       desc: '用于展示用户信息',
-    //       success: resolve,
-    //       fail: reject,
-    //     })
-    //   })
+    try {
+      Taro.showLoading({ title: '登录中..' })
+      const { code } = await asyncFunc(Taro.login)
+      if (code) {
+        const {
+          data: { token, userInfo },
+        } = await weappLogin(code)
 
-    //   if (data?.userInfo) {
-    //     setUserInfo(data?.userInfo)
-    //     Taro.reLaunch({
-    //       url: '/pages/home/index',
-    //     })
-    //   }
-    // } finally {
-    //   Taro.hideLoading()
-    // }
+        storage.set(TOKEN, token)
+        storage.set(USER_INFO, userInfo)
+        Taro.reLaunch({
+          url: '/pages/home/index',
+        })
+      }
+    } finally {
+      Taro.hideLoading()
+    }
   }
 
   useShare('/pages/welcome/index')

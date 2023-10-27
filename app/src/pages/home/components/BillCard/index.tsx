@@ -1,19 +1,19 @@
-import { remove, update } from '@/api/db'
-import { HistoryModel } from '@/models/db'
+import { removeBill, updateBill } from '@/api/bill'
+import type { BillModel } from '@/models/bill'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
+import BillItem, { type BillItemProps } from '../BillItem'
 import EditPopup from '../EditPopup'
-import HistoryItem, { HistoryItemProps } from '../HistoryItem'
 import './index.less'
 
-export interface HistoryItemModel extends HistoryItemProps {
+export interface BillItemModel extends BillItemProps {
   id: string
 }
 
 export type HistoryCardProps = {
   time: string
-  data: HistoryModel[]
+  data: BillModel[]
   onChange?: () => void
 }
 
@@ -38,20 +38,25 @@ const HistoryCard = (props: HistoryCardProps) => {
     setEditPopupVisible(true)
   }
 
-  const onConfirm = (values) => {
-    update(values)
+  const onConfirm = async (values) => {
     setEditPopupVisible(false)
-    props?.onChange?.()
+    try {
+      Taro.showLoading()
+      await updateBill(values)
+      props?.onChange?.()
+    } finally {
+      Taro.hideLoading()
+    }
   }
 
   // 删除
-  const onRemove = (id) => {
+  const onRemove = async (id) => {
     Taro.showModal({
       content: '此操作将删除该数据，是否继续?',
-      success: () => {
+      success: async () => {
         Taro.showLoading()
         try {
-          remove(id)
+          await removeBill(id)
           props?.onChange?.()
         } finally {
           Taro.hideLoading()
@@ -61,10 +66,10 @@ const HistoryCard = (props: HistoryCardProps) => {
   }
 
   return (
-    <View className="history-card">
-      <View className="history-card-header">
-        <View className="history-card-time">{props?.time}</View>
-        <View className="history-card-money">
+    <View className="bill-card">
+      <View className="bill-card-header">
+        <View className="bill-card-time">{props?.time}</View>
+        <View className="bill-card-money">
           <View className="header-item header-item-income">
             <text className="header-item-tag">收</text>
             <text className="header-item-income">{income}</text>
@@ -75,10 +80,10 @@ const HistoryCard = (props: HistoryCardProps) => {
           </View>
         </View>
       </View>
-      <View className="history-card-body">
+      <View className="bill-card-body">
         {props?.data?.map((item) => {
           return (
-            <HistoryItem
+            <BillItem
               {...item}
               onRemove={() => onRemove(item.id as string)}
               onEdit={() => onEdit(item.id as string)}

@@ -1,33 +1,27 @@
-import { CLASS_CODE } from "../utils/constants.ts";
-
-// 班级
-export interface Classes {
+export interface UserModel {
   id?: string;
-  code: CLASS_CODE;
-  name: string;
-  cover: string;
-}
-
-// 学科
-export interface Subject {
-  id?: string;
-  classes: CLASS_CODE[];
-  code: string;
-  name: string;
-}
-// 系统信息
-export interface System {
-  id?: string;
-  // 欢迎页
-  welcome: { text: string; image: string }[];
-}
-export interface User {
-  id?: string;
-  username?: string;
-  password?: string;
-  name?: string;
-  avatar?: string;
-  classCode?: number;
-  className?: string;
+  openid?: string;
+  // 用户昵称
+  nickName: string;
+  // 性别 0: 男 1: 女
+  gender?: string;
+  // 头像
+  avatarUrl?: string;
   token?: string;
+}
+
+enum BILL_TYPE {
+  INCOME = "INCOME",
+  SPENDING = "SPENDING",
+}
+// 账单
+export interface BillModel {
+  id?: string;
+  type: BILL_TYPE;
+  year: number;
+  month: number;
+  day: number;
+  money: number;
+  // 备注
+  note?: string;
 }
