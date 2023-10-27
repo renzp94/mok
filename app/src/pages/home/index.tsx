@@ -35,7 +35,16 @@ const Page = () => {
   }, [])
 
   useEffect(() => {
-    getBills(year, month)
+    const getData = async () => {
+      try {
+        Taro.showLoading()
+        await getBills(year, month)
+      } finally {
+        Taro.hideLoading()
+      }
+    }
+
+    getData()
   }, [year, month, getBills])
 
   const incomeMoney = bills

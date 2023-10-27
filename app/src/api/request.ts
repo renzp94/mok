@@ -3,7 +3,9 @@ import { asyncFunc } from '@/utils/tools'
 import Taro from '@tarojs/taro'
 
 const DOMAIN =
-  process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : ''
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000'
+    : 'https://mok.deno.dev'
 
 const BASE_URL = '/api/app'
 
