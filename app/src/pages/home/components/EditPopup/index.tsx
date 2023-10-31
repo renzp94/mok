@@ -27,7 +27,7 @@ const getNow = () => {
 const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
   const [year, month, day] = getNow()
   const defaultValues: BillModel = {
-    type: BILL_TYPE.INCOME,
+    type: BILL_TYPE.SPENDING,
     year,
     month,
     day,
@@ -133,11 +133,11 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
               className={styles['radio-group']}
               onChange={onTypeChange}
             >
-              <Radio className={styles.radio} shape="button" value="INCOME">
-                收入
-              </Radio>
               <Radio className={styles.radio} shape="button" value="SPENDING">
                 支出
+              </Radio>
+              <Radio className={styles.radio} shape="button" value="INCOME">
+                收入
               </Radio>
             </Radio.Group>
             <Button size="small" onClick={() => setDateVisible(true)}>
