@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/renzp94/mok/compare/v0.1.3...v0.1.4) (2023-11-01)
+
+
+### 其他
+
+* 调整添加默认类型为支出 ([370d947](https://github.com/renzp94/mok/commit/370d9475eed37cee865f54e7bf0dfd4ddc4ccef0))
+
+
+### 新功能
+
+* 添加版本更新检测 ([c98d938](https://github.com/renzp94/mok/commit/c98d938e3521c7c0251d2df731e3849e92831f83))
+
+
+### Bug修复
+
+* 修复首页滚动样式的问题 ([10bf7db](https://github.com/renzp94/mok/commit/10bf7db98b135f3d62e9304a493e75221f0f3b3b))
+
 ### [0.1.3](https://github.com/renzp94/mok/compare/v0.1.2...v0.1.3) (2023-10-27)
 
 
