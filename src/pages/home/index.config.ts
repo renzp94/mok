@@ -3,6 +3,7 @@ export default definePageConfig({
   navigationBarBackgroundColor: '#4170ff',
   navigationBarTextStyle: 'white',
   backgroundColor: '#4170ff',
+  disableScroll: true,
   enableShareAppMessage: true,
   enableShareTimeline: true,
 })

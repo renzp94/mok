@@ -2,7 +2,7 @@ import { add, select } from '@/api/db'
 import { useShare } from '@/hooks/share'
 import { HistoryModel } from '@/models/db'
 import { IconFont } from '@nutui/icons-react-taro'
-import { DatePicker, Empty, Sticky } from '@nutui/nutui-react-taro'
+import { DatePicker, Empty } from '@nutui/nutui-react-taro'
 import classes from '@renzp/classes'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
@@ -116,31 +116,29 @@ const Page = () => {
 
   return (
     <>
-      <Sticky>
-        <View className={styles.header}>
-          <View
-            className={classes([
-              styles['header-time'],
-              { [styles['header-time--open']]: timeVisible },
-            ])}
-            onClick={() => setTimeVisible(true)}
-          >
-            <View className={styles['header-time-title']}>{year}年</View>
-            <View className={styles['header-time-info']}>
-              <View className={styles['header-time-month']}>{month}</View>月
-            </View>
-          </View>
-          <View className={styles['header-money']}>
-            <TotalAmount
-              className={styles['header-money-result']}
-              label="结算: "
-              money={money}
-            />
-            <TotalAmount label="收入: " money={incomeMoney} />
-            <TotalAmount label="支出: " money={spendingMoney} />
+      <View className={styles.header}>
+        <View
+          className={classes([
+            styles['header-time'],
+            { [styles['header-time--open']]: timeVisible },
+          ])}
+          onClick={() => setTimeVisible(true)}
+        >
+          <View className={styles['header-time-title']}>{year}年</View>
+          <View className={styles['header-time-info']}>
+            <View className={styles['header-time-month']}>{month}</View>月
           </View>
         </View>
-      </Sticky>
+        <View className={styles['header-money']}>
+          <TotalAmount
+            className={styles['header-money-result']}
+            label="结算: "
+            money={money}
+          />
+          <TotalAmount label="收入: " money={incomeMoney} />
+          <TotalAmount label="支出: " money={spendingMoney} />
+        </View>
+      </View>
       <View className={styles.history}>
         {history.length > 0 ? (
           historyList.map((item) => (
