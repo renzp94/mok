@@ -5,6 +5,6 @@ export interface HistoryModel {
   year: number
   month: number
   day: number
-  money: string | number
+  money: string
   note?: string
 }

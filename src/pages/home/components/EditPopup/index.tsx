@@ -1,8 +1,10 @@
 import { select } from '@/api/db'
-import { HistoryModel, HistoryType } from '@/models/db'
+import { HistoryModel } from '@/models/db'
+import { getNow } from '@/utils/tools'
 import {
   Button,
   Calendar,
+  Form,
   Input,
   Popup,
   PopupProps,
@@ -19,12 +21,8 @@ export interface EditPopupProps extends Partial<PopupProps> {
   onConfirm?: (v: HistoryModel) => void
 }
 
-const getNow = () => {
-  const nowDate = new Date()
-  return [nowDate.getFullYear(), nowDate.getMonth() + 1, nowDate.getDate()]
-}
-
 const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
+  const [form] = Form.useForm()
   const [year, month, day] = getNow()
   const defaultValues: HistoryModel = {
     type: 'SPENDING',
@@ -38,11 +36,11 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
   const [values, setValues] = useState(defaultValues)
 
   useEffect(() => {
-    if (id) {
+    if (popupProps.visible && id) {
       const [data] = select({ id })
-      setValues({ ...data, money: data.money.toString() })
+      setValues(data)
     }
-  }, [id])
+  }, [popupProps.visible, id])
 
   const nowDate = `${values.year}/${values.month}/${values.day}`
 
@@ -69,13 +67,6 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
     setValues({ ...values })
   }
 
-  const onNoteChange = (note: string) => {
-    setValues((v) => ({ ...v, note }))
-  }
-
-  const onTypeChange = (type: HistoryType) => {
-    setValues((v) => ({ ...v, type }))
-  }
   const onTimeChange = ([year, month, day]: any) => {
     setValues((v) => ({ ...v, year, month, day }))
   }
@@ -85,8 +76,15 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
     popupProps?.afterClose?.()
   }
 
-  const onSubmit = () => {
-    if (!values.money) {
+  const onFinish = (formData: HistoryModel) => {
+    const payload = {
+      ...formData,
+      year: Number(values.year),
+      month: Number(values.month),
+      day: Number(values.day),
+      money: values.money,
+    }
+    if (!payload.money) {
       Taro.showToast({
         title: '请输入金额',
         icon: 'none',
@@ -95,12 +93,7 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
       return
     }
 
-    values.year = Number(values.year)
-    values.month = Number(values.month)
-    values.day = Number(values.day)
-    values.money = Number(values.money)
-
-    onConfirm?.(values)
+    onConfirm?.(payload)
   }
 
   return (
@@ -111,46 +104,51 @@ const EditPopup = ({ id, onConfirm, ...popupProps }: EditPopupProps) => {
       afterClose={onAfterClose}
       {...popupProps}
     >
-      <View className={styles['edit-popup-header']}>
-        <View onClick={popupProps?.onClose}>取消</View>
-        <View className={styles['edit-popup-confirm']} onClick={onSubmit}>
-          确定
+      <Form form={form} onFinish={onFinish} initialValues={values}>
+        <View className={styles['edit-popup-header']}>
+          <View onClick={popupProps?.onClose}>取消</View>
+          <Button
+            className={styles['edit-popup-confirm']}
+            fill="none"
+            formType="submit"
+          >
+            确定
+          </Button>
         </View>
-      </View>
-      <View className={styles['edit-popup-body']}>
-        <View className={styles.header}>
-          <View className={styles['header-row']}>
-            <Radio.Group
-              value={values.type}
-              className={styles['radio-group']}
-              onChange={onTypeChange}
-            >
-              <Radio className={styles.radio} shape="button" value="SPENDING">
-                支出
-              </Radio>
-              <Radio className={styles.radio} shape="button" value="INCOME">
-                收入
-              </Radio>
-            </Radio.Group>
-            <Button size="small" onClick={() => setDateVisible(true)}>
-              {nowDate}
-            </Button>
+        <View className={styles['edit-popup-body']}>
+          <View className={styles.header}>
+            <View className={styles['header-row']}>
+              <Form.Item name="type">
+                <Radio.Group className={styles['radio-group']}>
+                  <Radio
+                    className={styles.radio}
+                    shape="button"
+                    value="SPENDING"
+                  >
+                    支出
+                  </Radio>
+                  <Radio className={styles.radio} shape="button" value="INCOME">
+                    收入
+                  </Radio>
+                </Radio.Group>
+              </Form.Item>
+              <Button size="small" onClick={() => setDateVisible(true)}>
+                {nowDate}
+              </Button>
+            </View>
+            <View className={styles.money}>
+              ¥ <text className={styles['money-text']}>{values.money}</text>
+            </View>
+            <View className={styles['header-row']}>
+              <View style={{ width: 50 }}>备注：</View>
+              <Form.Item name="note">
+                <Input placeholder="请输入备注(最多输入20字)" maxLength={20} />
+              </Form.Item>
+            </View>
           </View>
-          <View className={styles.money}>
-            ¥ <text className={styles['money-text']}>{values.money}</text>
-          </View>
-          <View className={styles['header-row']}>
-            <View>备注：</View>
-            <Input
-              placeholder="请输入备注(最多输入20字)"
-              maxLength={20}
-              value={values?.note}
-              onChange={onNoteChange}
-            />
-          </View>
+          <NumberKeyboardPanel onClick={onKeyboardClick} />
         </View>
-        <NumberKeyboardPanel onClick={onKeyboardClick} />
-      </View>
+      </Form>
       <Calendar
         startDate={`${year}-01-01`}
         showTitle={false}
