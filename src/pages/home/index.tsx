@@ -4,6 +4,7 @@ import { HistoryModel } from '@/models/db'
 import { IconFont } from '@nutui/icons-react-taro'
 import { DatePicker, Empty } from '@nutui/nutui-react-taro'
 import classes from '@renzp/classes'
+import { minus, plus } from '@renzp/number-correct'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useEffect, useMemo, useState } from 'react'
@@ -35,13 +36,13 @@ const Page = () => {
   }
   const incomeMoney = history
     .filter((item) => item.type === 'INCOME')
-    .reduce((prev, curr) => prev + (curr.money as number), 0)
+    .reduce((prev, curr) => plus(prev, curr.money), '0')
 
   const spendingMoney = history
     .filter((item) => item.type === 'SPENDING')
-    .reduce((prev, curr) => prev + (curr.money as number), 0)
+    .reduce((prev, curr) => plus(prev, curr.money), '0')
 
-  const money = incomeMoney - spendingMoney
+  const money = minus(incomeMoney, spendingMoney)
 
   const historyList = useMemo(() => {
     // 获取时间列表
