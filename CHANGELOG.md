@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/renzp94/mok/compare/v0.1.4...v0.1.5) (2023-11-07)
+
+
+### Bug修复
+
+* 修复加减法精度丢失的问题 ([588f554](https://github.com/renzp94/mok/commit/588f5545e2f7a1f62643d8762a815807dcc9d293))
+
+
+### 其他
+
+* 优化备注输入卡顿的问题 ([c54dddf](https://github.com/renzp94/mok/commit/c54dddf974dab2362998fbb6cbab8db80730b4a3))
+
 ### [0.1.4](https://github.com/renzp94/mok/compare/v0.1.3...v0.1.4) (2023-11-01)
 
 
