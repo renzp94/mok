@@ -1,5 +1,6 @@
 import { removeBill, updateBill } from '@/api/bill'
 import type { BillModel } from '@/models/bill'
+import { plus } from '@renzp/number-correct'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
@@ -18,18 +19,18 @@ export type HistoryCardProps = {
 }
 
 const HistoryCard = (props: HistoryCardProps) => {
-  let income = 0
-  let spending = 0
+  let income = '0'
+  let spending = '0'
   const [editPopupVisible, setEditPopupVisible] = useState(false)
   const [id, setId] = useState<string>()
 
   for (const item of props.data) {
     if (item.type === 'INCOME') {
-      income += Number(item.money)
+      income = plus(income, item.money)
     }
 
     if (item.type === 'SPENDING') {
-      spending += Number(item.money)
+      spending = plus(spending, item.money)
     }
   }
 

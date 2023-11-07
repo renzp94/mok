@@ -6,7 +6,7 @@ import './index.less'
 export interface TotalAmountProps {
   className?: string
   label?: string
-  money: number
+  money: string
 }
 
 const TotalAmount = (props: TotalAmountProps) => {
@@ -17,7 +17,7 @@ const TotalAmount = (props: TotalAmountProps) => {
         <AnimatingNumbers.CountUp
           className="total-amount-count-up"
           thousands
-          value={props.money.toString()}
+          value={props.money}
         />
       </View>
     </View>
