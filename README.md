@@ -8,11 +8,18 @@
   </div>
 </div>
 
+## 截图
 
-## 二维码
+<div align="center">
+  <img height="512" src="./snapshot-welcome.png" />
+  <img height="512" src="./snapshot-home.png" />
+</div>
+
+## 扫码体验
 
 <div align="center">
   <img height="128" src="./weapp-code.jpg" />
   <br />
   <div>微信</div>
 </div>
+
