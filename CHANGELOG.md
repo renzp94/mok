@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/renzp94/mok/compare/v0.1.5...v0.1.6) (2024-03-02)
+
+
+### Bug修复
+
+* 修复数据删除弹窗点取消后还是删除数据的问题 ([45c6f9d](https://github.com/renzp94/mok/commit/45c6f9d4db133049dfda0a7346a4eb9d2e253597))
+
 ### [0.1.5](https://github.com/renzp94/mok/compare/v0.1.4...v0.1.5) (2023-11-07)
 
 

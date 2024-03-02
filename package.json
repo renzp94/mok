@@ -1,6 +1,6 @@
 {
   "name": "mok",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "description": "基于Taro和React开发的一款记账小程序",
   "templateInfo": {
