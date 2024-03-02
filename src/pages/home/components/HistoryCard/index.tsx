@@ -49,13 +49,15 @@ const HistoryCard = (props: HistoryCardProps) => {
   const onRemove = (id) => {
     Taro.showModal({
       content: '此操作将删除该数据，是否继续?',
-      success: () => {
-        Taro.showLoading()
-        try {
-          remove(id)
-          props?.onChange?.()
-        } finally {
-          Taro.hideLoading()
+      success: (e) => {
+        if(e.confirm){
+          Taro.showLoading()
+          try {
+            remove(id)
+            props?.onChange?.()
+          } finally {
+            Taro.hideLoading()
+          }
         }
       },
     })
