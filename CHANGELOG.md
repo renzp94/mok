@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/renzp94/mok/compare/v0.1.6...v0.1.7) (2024-03-05)
+
+
+### 其他
+
+* 更新README ([6c96864](https://github.com/renzp94/mok/commit/6c96864088af774c92f8ad8e319b2c73a7e5145e))
+
+
+### Bug修复
+
+* 修复组件库版本自动升级导致添加弹窗组件不显示的问题 ([3ae6ac9](https://github.com/renzp94/mok/commit/3ae6ac93f1eb203715b6ea6383139d90a76f118f))
+
 ### [0.1.6](https://github.com/renzp94/mok/compare/v0.1.5...v0.1.6) (2024-03-02)
 
 
