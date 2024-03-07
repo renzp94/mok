@@ -1,4 +1,10 @@
-import { decode, type Payload, type RouterContext } from "../deps.ts";
+import {
+  decode,
+  existsSync,
+  loadEnvSync,
+  type Payload,
+  type RouterContext,
+} from "../deps.ts";
 import type { UserModel } from "../db/model.ts";
 /**
  * 从路由上下文中获取token
@@ -35,4 +41,16 @@ export const removeUserOpenidAndToken = (data: UserModel) => {
     openid: undefined,
     token: undefined,
   };
+};
+export const removeUserPasswordAndToken = (data: UserModel) => {
+  return {
+    ...data,
+    password: undefined,
+    token: undefined,
+  };
+};
+
+export const loadEnv = () => {
+  const hasEnvFile = existsSync("./.env");
+  return hasEnvFile ? loadEnvSync() : Deno.env.toObject();
 };

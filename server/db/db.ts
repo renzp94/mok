@@ -1,9 +1,11 @@
+import { loadEnv } from "../utils/tools.ts";
+
 const {
   DB_API_URL,
   DB_DATA_API_KEY,
   DB_DATA_BASE,
   DB_DATA_SOURCE,
-} = Deno.env.toObject();
+} = loadEnv();
 
 const defaultBody = {
   dataSource: DB_DATA_SOURCE,
@@ -173,11 +175,6 @@ export default class DB {
     limit?: number;
     skip?: number;
   }): DBResponse<T[]> {
-    console.log({
-      action: "find",
-      collection: tb,
-      params,
-    });
     const { ok, data } = await this.#run<{ documents: T[] }>({
       action: "find",
       collection: tb,

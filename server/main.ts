@@ -7,6 +7,9 @@ const app = new Application();
 
 const ignorePatterns: IgnorePattern[] = [
   /\/api\/app\/((user\/weappLogin)$)/,
+  /\/api\/app\/((user\/login)$)/,
+  /\/api\/app\/((user\/logout)$)/,
+  /\/api\/app\/((user\/register)$)/,
 ];
 
 app.use(logger.logger);

@@ -8,6 +8,10 @@ export interface UserModel {
   // 头像
   avatarUrl?: string;
   token?: string;
+  // 账号
+  username?: string;
+  // 密码
+  password?: string;
 }
 
 enum BILL_TYPE {

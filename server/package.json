@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "dev": "deno run --allow-net --allow-env --unstable --watch main.ts"
+    "dev": "deno run --allow-net --allow-env --allow-read --unstable --watch main.ts"
   }
 }
