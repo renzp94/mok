@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mok_app/models/bills.dart';
-import 'package:mok_app/pages/home/widgets/bill/bill_card.dart';
+import 'package:app/models/bills.dart';
+import 'package:app/pages/home/widgets/bill/bill_card.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class BillList extends StatelessWidget {

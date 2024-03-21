@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:mok_app/api/bills.dart';
-import 'package:mok_app/models/bills.dart';
-import 'package:mok_app/pages/home/widgets/add_panel.dart';
-import 'package:mok_app/pages/home/widgets/bill/bill_item.dart';
+import 'package:app/api/bills.dart';
+import 'package:app/models/bills.dart';
+import 'package:app/pages/home/widgets/add_panel.dart';
+import 'package:app/pages/home/widgets/bill/bill_item.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class BillCard extends StatelessWidget {

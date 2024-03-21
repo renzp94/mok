@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mok_app/api/bills.dart';
-import 'package:mok_app/models/bills.dart';
-import 'package:mok_app/models/result.dart';
-import 'package:mok_app/pages/home/widgets/add_panel.dart';
-import 'package:mok_app/pages/home/widgets/bill/bill_list.dart';
-import 'package:mok_app/pages/home/widgets/drawer.dart';
-import 'package:mok_app/pages/home/widgets/header.dart';
+import 'package:app/api/bills.dart';
+import 'package:app/models/bills.dart';
+import 'package:app/models/result.dart';
+import 'package:app/pages/home/widgets/add_panel.dart';
+import 'package:app/pages/home/widgets/bill/bill_list.dart';
+import 'package:app/pages/home/widgets/drawer.dart';
+import 'package:app/pages/home/widgets/header.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class HomePage extends StatefulWidget {

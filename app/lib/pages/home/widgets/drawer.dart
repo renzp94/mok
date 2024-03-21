@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mok_app/api/user.dart';
-import 'package:mok_app/utils/storage.dart';
+import 'package:app/api/user.dart';
+import 'package:app/utils/storage.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Map userInfo = storage.read(USER_INFO);
+    dynamic userInfo = storage.read(USER_INFO);
 
     return Drawer(
       child: ListView(
@@ -28,7 +28,7 @@ class HomeDrawer extends StatelessWidget {
                 child: const CircleAvatar(
                     backgroundImage: AssetImage("./assets/images/logo.png"))),
             accountName: Text(
-              "${userInfo["nickName"]}",
+              "${userInfo != null ? userInfo["nickName"] : ''} ",
               style: const TextStyle(
                   color: Colors.white, fontWeight: FontWeight.bold),
             ),

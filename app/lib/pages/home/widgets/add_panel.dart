@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:mok_app/api/bills.dart';
-import 'package:mok_app/models/bills.dart';
-import 'package:mok_app/models/result.dart';
-import 'package:mok_app/utils/precision_limit_formatter.dart';
+import 'package:app/api/bills.dart';
+import 'package:app/models/bills.dart';
+import 'package:app/models/result.dart';
+import 'package:app/utils/precision_limit_formatter.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 ColorScheme inputColorScheme = ColorScheme(

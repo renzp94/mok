@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mok_app/api/user.dart';
-import 'package:mok_app/models/result.dart';
+import 'package:app/api/user.dart';
+import 'package:app/models/result.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

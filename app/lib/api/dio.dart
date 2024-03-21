@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:mok_app/models/result.dart';
-import 'package:mok_app/pages/routers.dart';
-import 'package:mok_app/utils/storage.dart';
-
-import '../utils/constant.dart';
+import 'package:app/models/result.dart';
+import 'package:app/pages/routers.dart';
+import 'package:app/utils/storage.dart';
+import 'package:app/utils/constant.dart';
 
 class AppDio {
   late Dio dio;

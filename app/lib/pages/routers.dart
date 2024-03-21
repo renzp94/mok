@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mok_app/pages/about/about.dart';
-import 'package:mok_app/pages/auth_route/auth_route.dart';
-import 'package:mok_app/pages/home/home.dart';
-import 'package:mok_app/pages/login/login.dart';
-import 'package:mok_app/pages/register/register.dart';
+import './about/about.dart';
+import './auth_route/auth_route.dart';
+import './home/home.dart';
+import './login/login.dart';
+import './register/register.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
